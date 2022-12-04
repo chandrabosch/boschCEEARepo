@@ -539,14 +539,29 @@
 		<property name="ticketBusinessService" ref="ticketBusinessService"/>
 	</bean>
 	
-          
-	      <bean id="upload3DImageProductService" class="de.hybris.ceea.facades.service.impl.Upload3DImageProductServiceImpl">
-           
-            <property name="productService" ref="productService"/>
-          <property name="mediaService" ref="mediaService"/>
-		<property name="modelService" ref="modelService"/>
-		<property name="eventService" ref="eventService"/>
-            </bean>
+	<!-- <bean id="defaultProductDao" 
+	      class="com.ceea.core.product.dao.impl.CustomProductDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean> -->
+	
+	<alias alias="customProductDao" name="customProductDao"/>
+	<bean id="customProductDao"
+	      class="com.ceea.core.product.dao.impl.CustomProductDaoImpl"
+	      parent="abstractItemDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+	
+	<bean id="upload3DImageProductService"
+		class="de.hybris.ceea.facades.service.impl.Upload3DImageProductServiceImpl">
+		<property name="productService" ref="productService" />
+		<property name="mediaService" ref="mediaService" />
+		<property name="modelService" ref="modelService" />
+		<property name="eventService" ref="eventService" />
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+		<property name ="sessionService" ref="sessionService"/>
+		<property name ="searchRestrictionService" ref="searchRestrictionService"/>
+	</bean>
+	
 	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/> -->
 	
 	<bean id="ceea3DImageSubmitEventListner" class="de.hybris.ceea.core.event.Ceea3DImageSubmitEventListner"
